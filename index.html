@@ -1,0 +1,418 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>TagScript Blockly Playground</title>
+    <!-- This script loads uncompressed when on localhost and loads
+        compressed when it is being hosted or on Internet Explorer.  -->
+    <script src="https://unpkg.com/blockly/blockly.min.js"></script>
+    <script src="./TagScript/index.js"></script>
+    <script src="./TagScript/custom.js"></script>
+    <script src="./TagScript/color.js"></script>
+    <script src="./TagScript/text.js"></script>
+    <script src="./TagScript/logic.js"></script>
+    <script src="./TagScript/lists.js"></script>
+    <script src="./TagScript/variables.js"></script>
+    <script src="./TagScript/math.js"></script>
+    <script type=module>
+
+    // Wait for Blockly to finish loading.
+
+    // const IS_UNCOMPRESSED = !window.bootstrapInfo.compressed;  // See bootstrap.js
+    var workspace = null;
+
+    function start() {
+      setBackgroundColour();
+
+      var toolbox = getToolboxElement();
+      var match = location.search.match(/side=([^&]+)/);
+      var autoimport = !!location.search.match(/autoimport=([^&]+)/);
+      // Create main workspace.
+      workspace = Blockly.inject('blocklyDiv',
+          {
+            comments: true,
+            collapse: true,
+            disable: true,
+            grid:
+              {
+                spacing: 25,
+                length: 3,
+                colour: '#ccc',
+                snap: true
+              },
+            horizontalLayout: false,
+            maxBlocks: Infinity,
+            maxInstances: {'test_basic_limit_instances': 3},
+            maxTrashcanContents: 256,
+            media: 'https://unpkg.com/blockly/media/',
+            oneBasedIndex: true,
+            readOnly: false,
+            move: {
+              scrollbars: true,
+              drag: true,
+              wheel: false,
+            },
+            toolbox: toolbox,
+            toolboxPosition: 'start',
+            renderer: 'geras',
+            zoom:
+              {
+                controls: true,
+                wheel: true,
+                startScale: 1.0,
+                maxScale: 4,
+                minScale: 0.25,
+                scaleSpeed: 1.1
+              }
+          });
+      workspace.configureContextMenu = configureContextMenu;
+      // Restore previously displayed text.
+      if (localStorage) {
+        var text = localStorage.getItem('textarea');
+        if (text) {
+          document.getElementById('importExportjson').value = text;
+        }
+      }
+      
+      load();
+
+      addEventHandlers();
+    }
+
+    function setBackgroundColour() {
+      document.body.style.backgroundColor = '#60fcfc';  // Familiar lilac.
+    }
+
+    function getToolboxElement() {
+      return document.getElementById('toolbox-categories');
+    }
+
+    function saveJson() {
+      var output = document.getElementById('importExportjson');
+      var state = Blockly.serialization.workspaces.save(workspace);
+      var save = JSON.stringify(state, null, 2);
+      output.value = save;
+      localStorage.setItem('textarea', save);
+    }
+
+    function load() {
+      var input = document.getElementById('importExportjson');
+      if (!input.value) {
+        return;
+      }
+      var valid = saveIsValid(input.value);
+      if (valid.json) {
+        var state = JSON.parse(input.value);
+        Blockly.serialization.workspaces.load(state, workspace);
+      } else if (valid.xml) {
+        var xml = Blockly.Xml.textToDom(input.value);
+        Blockly.Xml.domToWorkspace(xml, workspace);
+      }
+
+      toCode();
+    }
+
+
+    function toCode() {
+      var output = document.getElementById('importExport');
+      output.value = TagScript.workspaceToCode(workspace);
+    }
+
+    // Disable the "Load" button if the save state is invalid.
+    // Preserve text between page reloads.
+    function taChange() {
+        toCode()
+        saveJson();
+    }
+
+    function saveIsValid(save) {
+      var validJson = true;
+      try {
+        JSON.parse(save);
+      } catch (e) {
+        validJson = false;
+      }
+      var validXml = true
+      try {
+        Blockly.Xml.textToDom(save);
+      } catch (e) {
+        validXml = false;
+      }
+      return {
+        json: validJson,
+        xml: validXml
+      }
+    }
+
+
+    function configureContextMenu(menuOptions, e) {
+      var screenshotOption = {
+        text: 'Download Screenshot',
+        enabled: workspace.getTopBlocks().length,
+        callback: function() {
+          downloadScreenshot(workspace);
+        }
+      };
+      menuOptions.push(screenshotOption);
+
+      // Adds a default-sized workspace comment to the workspace.
+      menuOptions.push(Blockly.ContextMenu.workspaceCommentOption(workspace, e));
+    }
+
+    function addEventHandlers() {
+      document.getElementById('importExportjson').addEventListener('change', taChange);
+      document.getElementById('importExportjson').addEventListener('keyup', taChange);
+
+      document.getElementById('show')
+          .addEventListener('click', function() { workspace.setVisible(true); });
+      document.getElementById('hide')
+          .addEventListener('click', function() { workspace.setVisible(false); });
+
+      workspace.addChangeListener(taChange)
+    }
+      
+    // Call start().  Because this <script> has type=module, it is
+    // automatically deferred, so it will not be run until after the
+    // document has been parsed, but before firing DOMContentLoaded.
+    start();
+
+    </script>
+
+    <style>
+      html, body {
+        height: 100%;
+      }
+      body {
+        background-color: #fff;
+        font-family: sans-serif;
+        overflow: hidden;
+      }
+      h1 {
+        font-weight: normal;
+        font-size: 140%;
+      }
+      #blocklyDiv {
+        float: right;
+        height: 95%;
+        width: 70%;
+      }
+      #importExport {
+        font-family: monospace;
+      }
+
+      .ioLabel>.blocklyFlyoutLabelText {
+        font-style: italic;
+      }
+
+      #blocklyDiv.renderingDebug .blockRenderDebug {
+        display: block;
+      }
+
+      .playgroundToggleOptions {
+        list-style: none;
+        padding: 0;
+      }
+      .playgroundToggleOptions li {
+        margin-top: 1em;
+      }
+
+      .zelos-renderer .blocklyFlyoutButton .blocklyText {
+        font-size: 1.5rem;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div id="blocklyDiv"></div>
+
+    <h1>TagScript Block Editor</h1>
+
+    <p>
+      <input id="show" type="button" value="Show"></input> -
+      <input id="hide" type="button" value="Hide"></input> - 
+      <input id="clear" type="button" value="Clear" onclick="(function() { localStorage.setItem('toolbox'); load() })()"></input>
+    </p>
+    <p>
+      TagScript Code
+      <textarea id="importExport" style="width: 26%; height: 15em;margin-bottom: 20px;"></textarea><br/>
+      JSON Code
+      <textarea id="importExportjson" style="width: 26%; height: 15em"></textarea>
+    </p>
+
+    <!-- toolbox-categories has a category menu and an auto-closing flyout.  The
+    Variables category uses untyped variable blocks.
+    See https://developers.google.com/blockly/guides/create-custom-blocks/variables#untyped_variable_blocks for more information. -->
+    <xml xmlns="https://developers.google.com/blockly/xml" id="toolbox-categories" style="display: none">
+      <category name="Logic" categorystyle="logic_category">
+        <block type="controls_if"></block>
+        <block type="logic_compare"></block>
+        <block type="logic_operation"></block>
+        <block type="logic_negate"></block>
+        <block type="logic_boolean"></block>
+        <block type="logic_null" disabled="true"></block>
+        <block type="logic_ternary"></block>
+      </category>
+      <category name="Math" categorystyle="math_category">
+        <block type="math_number" gap="32">
+          <field name="NUM">123</field>
+        </block>
+        <block type="math_arithmetic">
+          <value name="A">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+          <value name="B">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="math_single">
+          <value name="NUM">
+            <shadow type="math_number">
+              <field name="NUM">9</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="math_trig">
+          <value name="NUM">
+            <shadow type="math_number">
+              <field name="NUM">45</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="math_constant"></block>
+        <block type="math_number_property">
+          <value name="NUMBER_TO_CHECK">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="math_round">
+          <value name="NUM">
+            <shadow type="math_number">
+              <field name="NUM">3.1</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="math_modulo">
+          <value name="DIVIDEND">
+            <shadow type="math_number">
+              <field name="NUM">64</field>
+            </shadow>
+          </value>
+          <value name="DIVISOR">
+            <shadow type="math_number">
+              <field name="NUM">10</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+      <category name="Text" categorystyle="text_category">
+        <block type="text"></block>
+        <block type="text_multiline"></block>
+        <block type="text_join"></block>
+        <block type="text_append">
+          <value name="TEXT">
+            <shadow type="text"></shadow>
+          </value>
+        </block>
+        <block type="text_changeCase">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">abc</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="text_replace">
+          <value name="FROM">
+            <shadow type="text"></shadow>
+          </value>
+          <value name="TO">
+            <shadow type="text"></shadow>
+          </value>
+          <value name="TEXT">
+            <shadow type="text"></shadow>
+          </value>
+        </block>
+  <!--       <block type="text_isEmpty">
+          <value name="VALUE">
+            <shadow type="text">
+              <field name="TEXT"></field>
+            </shadow>
+          </value>
+        </block> -->
+  <!--       <block type="text_changeCase">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">abc</field>
+            </shadow>
+          </value>
+        </block> -->
+        <label text="Input/Output:" web-class="ioLabel"></label>
+        <block type="text_print">
+          <value name="TEXT">
+            <shadow type="text">
+              <field name="TEXT">abc</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="text_args"></block>
+      </category>
+      <category name="Lists" categorystyle="list_category">
+        <block type="lists_create_with"></block>
+        <block type="lists_repeat">
+          <value name="NUM">
+            <shadow type="math_number">
+              <field name="NUM">5</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="lists_getIndex">
+          <value name="VALUE">
+            <block type="variables_get">
+              <field name="VAR">args</field>
+            </block>
+          </value>
+          <value name="AT">
+            <shadow type="math_number">
+              <field name="NUM">1</field>
+            </shadow>
+          </value>
+        </block>
+        <block type="lists_split">
+          <value name="DELIM">
+            <shadow type="text">
+              <field name="TEXT">,</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+      <category name="Colour" categorystyle="colour_category">
+        <block type="colour_picker"></block>
+        <block type="colour_random"></block>
+        <block type="colour_rgb">
+          <value name="RED">
+            <shadow type="math_number">
+              <field name="NUM">100</field>
+            </shadow>
+          </value>
+          <value name="GREEN">
+            <shadow type="math_number">
+              <field name="NUM">50</field>
+            </shadow>
+          </value>
+          <value name="BLUE">
+            <shadow type="math_number">
+              <field name="NUM">0</field>
+            </shadow>
+          </value>
+        </block>
+      </category>
+      <sep></sep>
+      <category name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
+    </xml>
+  </body>
+</html>
