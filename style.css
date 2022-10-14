@@ -1,0 +1,49 @@
+
+html, body {
+  height: 100%;
+}
+body {
+  background-color: #fff;
+  font-family: sans-serif;
+  overflow: hidden;
+  text-align: center;
+}
+h1 {
+  font-weight: normal;
+  font-size: 140%;
+  margin-bottom: 0px;
+}
+.version {
+  font-weight: normal;
+  margin-top: 0px;
+  color: #333333;
+  opacity: 0.8;
+}
+#blocklyDiv {
+  float: left;
+  height: 95%;
+  width: 70%;
+}
+#importExport {
+  font-family: monospace;
+}
+
+.ioLabel>.blocklyFlyoutLabelText {
+  font-style: italic;
+}
+
+#blocklyDiv.renderingDebug .blockRenderDebug {
+  display: block;
+}
+
+.playgroundToggleOptions {
+  list-style: none;
+  padding: 0;
+}
+.playgroundToggleOptions li {
+  margin-top: 1em;
+}
+
+.zelos-renderer .blocklyFlyoutButton .blocklyText {
+  font-size: 1.5rem;
+}
