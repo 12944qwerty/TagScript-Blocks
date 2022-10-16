@@ -34,6 +34,7 @@ TagScript.ORDER_LAMBDA = 16;            // lambda
 TagScript.ORDER_NONE = 99;              // (...)
 
 TagScript.isInitialized = false;
+TagScript.INDENT = ''
 
 TagScript.init = function(workspace) {
   // Call Blockly.Generator's init.
@@ -81,5 +82,26 @@ TagScript.finish = function(code) {
   }
 
   this.nameDB_.reset();
-  return stuff.filter(m => m).join('\n') + '\n' + code;
+  
+  const initialstuff = stuff.filter(m => m).join('\n');
+
+  return initialstuff + '\n' + code;
 };
+
+
+
+TagScript.scrubNakedValue = function(line) {
+  // Optionally override
+
+  return line + '\n';
+}
+
+TagScript.scrub_ = function(block, code, opt_thisOnly) {
+  const nextBlock = block.nextConnection && block.nextConnection.targetBlock();
+  const nextCode = opt_thisOnly ? '' : TagScript.blockToCode(nextBlock);
+
+  code = code.trimEnd();
+  code = nextBlock ? (code + "\n") : code;
+
+  return code + nextCode;
+}

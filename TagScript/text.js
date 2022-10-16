@@ -14,6 +14,12 @@ TagScript['text_args'] = function(block) {
   return [code, TagScript.ORDER_ATOMIC]
 }
 
+TagScript['text_print'] = function(block) {
+  // Print statement.
+  const msg = TagScript.valueToCode(block, 'TEXT', TagScript.ORDER_ATOMIC) || "";
+  return msg;
+};
+
 TagScript['text_join'] = function(block) {
   const elements = [];
   for (let i = 0; i < block.itemCount_; i++) {

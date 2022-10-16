@@ -242,3 +242,23 @@ Blockly.Blocks['text_changeCase'] = {
     this.setTooltip(Msg['TEXT_CHANGECASE_TOOLTIP']);
   },
 };
+
+Blockly.Blocks['logic_operation'] = {
+  init: function() {
+    this.appendValueInput("CONDITION")
+        .setCheck(null)
+        .appendField("if ")
+        .appendField(new Blockly.FieldDropdown([["all","ALL"], ["any","ANY"]]), "TYPE");
+    this.appendStatementInput("DO")
+        .setCheck(null)
+        .appendField("then");
+    this.appendStatementInput("ELSE")
+        .setCheck(null)
+        .appendField("else");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(210);
+    this.setTooltip("ALL/AND and OR/ANY if block statement. Condition is a list of booleans");
+    this.setHelpUrl("https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#control-blocks");
+  }
+};

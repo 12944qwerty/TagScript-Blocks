@@ -37,27 +37,14 @@ TagScript['logic_compare'] = function(block) {
 };
 
 TagScript['logic_operation'] = function(block) {
-  // Operations 'and', 'or'.
-  const operator = (block.getFieldValue('OP') === 'AND') ? 'and' : 'or';
-  const order =
-      (operator === 'and') ? TagScript.ORDER_LOGICAL_AND : TagScript.ORDER_LOGICAL_OR;
-  let argument0 = TagScript.valueToCode(block, 'A', order);
-  let argument1 = TagScript.valueToCode(block, 'B', order);
-  if (!argument0 && !argument1) {
-    // If there are no arguments, then the return value is false.
-    argument0 = 'false';
-    argument1 = 'false';
-  } else {
-    // Single missing arguments have no effect on the return value.
-    const defaultArgument = (operator === 'and') ? 'true' : 'false';
-    if (!argument0) {
-      argument0 = defaultArgument;
-    }
-    if (!argument1) {
-      argument1 = defaultArgument;
-    }
-  }
-  const code = operator + '(' + argument0 + '|' + argument1 + ')';
-  return [code, order];
+  // Operations 'all', 'any'.
+  const operator = (block.getFieldValue('TYPE') === 'ALL') ? 'all' : 'any';
+
+  let condition = TagScript.valueToCode(block, 'CONDITION', TagScript.ORDER_CONDITIONAL) || 'false';
+  
+  const do_ = TagScript.statementToCode(block, 'DO', TagScript.ORDER_NONE) || '';
+  const then = TagScript.statementToCode(block, 'ELSE', TagScript.ORDER_NONE) || '';
+
+  return `{${operator}(${condition.replaceAll('~', '|')}):${do_}|${then}}`
 };
 

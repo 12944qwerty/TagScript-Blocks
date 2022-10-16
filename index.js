@@ -94,7 +94,7 @@ function toCode() {
 // Disable the "Load" button if the save state is invalid.
 // Preserve text between page reloads.
 function taChange() {
-    toCode()
+    toCode();
     saveJson();
 }
 
