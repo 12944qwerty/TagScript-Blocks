@@ -29,11 +29,20 @@
       <input id="hide" type="button" value="Hide"></input> - 
       <input id="clear" type="button" value="Clear"></input>
     </p>
+    <br/>
     <p>
-      TagScript Code
-      <textarea id="importExport" style="width: 26%; height: 15em;margin-bottom: 20px;"></textarea><br/>
-      JSON Code
-      <textarea id="importExportjson" style="width: 26%; height: 15em"></textarea>
+      <div class="codes">
+        TagScript Code
+        <button id="copy" type="button">Copy</button>
+
+        <p class="center"><textarea id="importExport" style="width: 26%; height: 15em;margin-bottom: 20px;" readonly></textarea></p>
+      </div>
+      <div class="codesjson">
+        JSON Code
+        <button id="copyjson" type="button">Copy JSON</button>
+
+        <p class="center"><textarea id="importExportjson" style="width: 26%; height: 15em;margin-bottom: 20px;" readonly></textarea></p>
+      </div>
     </p>
 
     <!-- toolbox-categories has a category menu and an auto-closing flyout.  The

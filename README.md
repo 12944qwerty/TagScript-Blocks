@@ -27,3 +27,4 @@ At the moment it is very buggy and incomplete. I still have several blocks to ge
 
 ### **v0.0.3**
   - Added custom `break` block. 
+  - Added copying functionality

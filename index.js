@@ -132,6 +132,13 @@ function configureContextMenu(menuOptions, e) {
   menuOptions.push(Blockly.ContextMenu.workspaceCommentOption(workspace, e));
 }
 
+function copyCode(code) {
+  const elem = document.getElementById('importExport' + code);
+  const _code = elem.value;
+  elem.select();
+  navigator.clipboard.writeText(_code);
+}
+
 function addEventHandlers() {
   document.getElementById('importExportjson').addEventListener('change', taChange);
   document.getElementById('importExportjson').addEventListener('keyup', taChange);
@@ -142,6 +149,17 @@ function addEventHandlers() {
     .addEventListener('click', function() { workspace.setVisible(false); });
   document.getElementById('clear')
     .addEventListener('click', function() { document.getElementById('importExportjson').value = '{}'; load() });
+
+  document.getElementById('importExport')
+    .addEventListener('click', function() { document.getElementById('importExport').select() })
+  document.getElementById('importExportjson')
+    .addEventListener('click', function() { document.getElementById('importExportjson').select() })
+
+  
+  document.getElementById('copy')
+    .addEventListener('click', function() { copyCode('') })
+  document.getElementById('copyjson')
+    .addEventListener('click', function() { copyCode('json') })
 
   workspace.addChangeListener(taChange)
 }
