@@ -262,3 +262,20 @@ Blockly.Blocks['logic_operation'] = {
     this.setHelpUrl("https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#control-blocks");
   }
 };
+
+Blockly.Blocks['break_block'] = {
+  init: function() {
+    this.appendValueInput("IF")
+        .setCheck("Boolean")
+        .setAlign(Blockly.ALIGN_RIGHT)
+        .appendField("stop code if");
+    this.appendValueInput("MESSAGE")
+        .setCheck("String")
+        .appendField("with message");
+    this.setPreviousStatement(true, null);
+    this.setNextStatement(true, null);
+    this.setColour(210);
+ this.setTooltip("Stops code from running after this point if condition is true. Command blocks will continue to run.");
+ this.setHelpUrl("https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#control-blocks");
+  }
+};

@@ -1,5 +1,5 @@
 TagScript['logic_boolean'] = function(block) {
-  const code = (block.getFieldValue('BOOL') == 'TRUE') ? 'true' : 'false';
+  const code = (block.getFieldValue('BOOL') == 'TRUE') ? '0==0' : '0==1';
   return [code, TagScript.ORDER_ATOMIC];
 };
 
@@ -11,7 +11,7 @@ TagScript['logic_null'] = function(block) {
 TagScript['logic_ternary'] = function(block) {
   // Ternary operator.
   const value_if =
-      TagScript.valueToCode(block, 'IF', TagScript.ORDER_CONDITIONAL) || 'false';
+      TagScript.valueToCode(block, 'IF', TagScript.ORDER_CONDITIONAL) || '0==1';
   const value_then =
       TagScript.valueToCode(block, 'THEN', TagScript.ORDER_CONDITIONAL);
   const value_else =
@@ -40,7 +40,7 @@ TagScript['logic_operation'] = function(block) {
   // Operations 'all', 'any'.
   const operator = (block.getFieldValue('TYPE') === 'ALL') ? 'all' : 'any';
 
-  let condition = TagScript.valueToCode(block, 'CONDITION', TagScript.ORDER_CONDITIONAL) || 'false';
+  let condition = TagScript.valueToCode(block, 'CONDITION', TagScript.ORDER_CONDITIONAL) || '0==1';
   
   const do_ = TagScript.statementToCode(block, 'DO', TagScript.ORDER_NONE) || '';
   const then = TagScript.statementToCode(block, 'ELSE', TagScript.ORDER_NONE) || '';
@@ -48,3 +48,8 @@ TagScript['logic_operation'] = function(block) {
   return `{${operator}(${condition.replaceAll('~', '|')}):${do_}|${then}}`
 };
 
+TagScript['break_block'] = function(block) {
+  const condition = TagScript.valueToCode(block, 'IF', TagScript.ORDER_CONDITIONAL) || '0==1';
+  const message = TagScript.valueToCode(block, 'MESSAGE', TagScript.ORDER_ATOMIC) || '';
+  return `{break(${condition}):${message}}`;
+}

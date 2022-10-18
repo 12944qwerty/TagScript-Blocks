@@ -24,3 +24,6 @@ At the moment it is very buggy and incomplete. I still have several blocks to ge
   - Added logic operator for `and` and `any`.
   - Overwrote said block for how it's done in TagScript.
   - Added `print` block
+
+### **v0.0.3**
+  - Added custom `break` block. 

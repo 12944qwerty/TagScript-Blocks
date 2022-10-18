@@ -22,7 +22,7 @@
     <div id="blocklyDiv"></div>
 
     <h1>TagScript Block Editor</h1>
-    <p class="version">by 12944qwerty - v0.0.2</p>
+    <p class="version">by 12944qwerty - v0.0.3</p>
 
     <p>
       <input id="show" type="button" value="Show"></input> -
@@ -48,6 +48,11 @@
         <block type="logic_boolean"></block>
         <block type="logic_null" disabled="true"></block>
         <block type="logic_ternary"></block>
+        <block type="break_block">
+          <value name="MESSAGE">
+            <shadow type="text"></shadow>
+          </value>
+        </block>
       </category>
       <category name="Math" categorystyle="math_category">
         <block type="math_number" gap="32">
