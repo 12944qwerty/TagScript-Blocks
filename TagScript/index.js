@@ -69,7 +69,7 @@ TagScript.init = function(workspace) {
 
   // this.definitions_ = [];
 
-  this.definitions_['variables'] = defvars.join('\n');
+  // this.definitions_['variables'] = defvars.join('\n');
   this.isInitialized = true;
 };
 
