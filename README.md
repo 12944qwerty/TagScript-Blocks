@@ -26,5 +26,8 @@ At the moment it is very buggy and incomplete. I still have several blocks to ge
   - Added `print` block
 
 ### **v0.0.3**
+  - Force Blockly v9.0.0 for now
   - Added custom `break` block. 
   - Added copying functionality
+  - Fixed variables to be duplicated when generated
+  - Added reserved variable names.

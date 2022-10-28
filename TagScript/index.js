@@ -8,7 +8,53 @@ const Msg = Blockly.Msg;
 const FieldDropdown = Blockly.FieldDropdown;
 const ConnectionType = Blockly.ConnectionType;
 
-TagScript.addReservedWords('any,all,random,args,#,rand,math,m,var,=,let')
+TagScript.addReservedWords(
+  // TagScript Logic
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#control-blocks
+  'any,all,if,break,in,' +
+
+  // TagScript Variables and Lists
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#data-storage-parsing
+  'let,=,var,assign,' +
+  'list,cycle,index,' + 
+
+  // TagScript Random
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#rng-blocks
+  'random,rand,#,range,rangef,50,5050,?' + 
+
+  // TagScript Math
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#math-blocks
+  'math,m,calc,+' + 
+
+  // TagScript Manipulate
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#manipulation-blocks
+  'ord,lower,upper,join,replace,urlencode,' + 
+
+  // TagScript Args
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#default-variables
+  'args,message' +
+
+
+  // Carlbot Default Variables
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#default-variables
+  'uses,mention,' + 
+
+  // Carlbot Command
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#command-blocks
+  'command,cmd,c,' +
+
+  // Discord Objects
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#discord-objects
+  'user,target,server,channel,embed,' + 
+
+  // Discord Meta Blocks
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#meta-blocks
+  'delete,del,dm,redirect,require,blacklist,react,reactu,override,' + 
+
+  // Discord Time Blocks
+  // https://docs.carl.gg/tags-and-triggers/tags-advanced-usage/#time-blocks
+  'strf,unix,td,'
+)
 
 TagScript.ORDER_ATOMIC = 0;             // 0 "" ...
 TagScript.ORDER_COLLECTION = 1;         // tuples, lists, dictionaries
