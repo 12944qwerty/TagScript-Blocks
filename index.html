@@ -2,10 +2,10 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title>TagScript Blockly Playground</title>
+    <title>TagScript Playground</title>
     <!-- This script loads uncompressed when on localhost and loads
         compressed when it is being hosted or on Internet Explorer.  -->
-    <script src="https://unpkg.com/blockly@9.0.0/blockly.min.js"></script>
+    <script src="https://unpkg.com/blockly@9.2.1/blockly.min.js"></script>
     <script src="./TagScript/index.js"></script>
     <script src="./TagScript/custom.js"></script>
     <script src="./TagScript/color.js"></script>
@@ -21,29 +21,29 @@
   <body>
     <div id="blocklyDiv"></div>
 
-    <h1>TagScript Block Editor</h1>
-    <p class="version">by 12944qwerty - v0.0.3</p>
+    <div id="else">
+      <h1>CarlBot TagScript Block Editor</h1>
+      <p class="version">by 12944qwerty - v1.0.0</p>
+      <p class="description">This blockly tagscript editor is for the carlbot tagscript. It is slightly different than the regular version and includes the discord blocks as well.</p>
 
-    <p>
-      <input id="show" type="button" value="Show"></input> -
-      <input id="hide" type="button" value="Hide"></input> - 
-      <input id="clear" type="button" value="Clear"></input>
-    </p>
-    <br/>
-    <p>
+      <p>
+        <input id="show" type="button" value="Show"></input> -
+        <input id="hide" type="button" value="Hide"></input> - 
+        <input id="clear" type="button" value="Clear"></input> - 
+        <a id="docs" class="button" href="./info.html">Info</a>
+      </p>
       <div class="codes">
         TagScript Code
         <button id="copy" type="button">Copy</button>
-
-        <p class="center"><textarea id="importExport" style="width: 26%; height: 15em;margin-bottom: 20px;resize: none;" readonly></textarea></p>
+        <p class="center"><textarea id="importExport" readonly></textarea></p>
       </div>
       <div class="codesjson">
         JSON Code
         <button id="copyjson" type="button">Copy JSON</button>
 
-        <p class="center"><textarea id="importExportjson" style="width: 26%; height: 15em;margin-bottom: 20px;resize: none;" readonly></textarea></p>
+        <p class="center"><textarea id="importExportjson" readonly></textarea></p>
       </div>
-    </p>
+    </div>
 
     <!-- toolbox-categories has a category menu and an auto-closing flyout.  The
     Variables category uses untyped variable blocks.
@@ -124,7 +124,18 @@
       <category name="Text" categorystyle="text_category">
         <block type="text"></block>
         <block type="text_multiline"></block>
-        <block type="text_join"></block>
+        <block type="text_join">
+          <value name="ADD0">
+            <shadow type="text">
+              <field name="TEXT">abc</field>
+            </shadow>
+          </value>
+          <value name="ADD1">
+            <shadow type="text">
+              <field name="TEXT">dfe</field>
+            </shadow>
+          </value>
+        </block>
         <block type="text_append">
           <value name="TEXT">
             <shadow type="text"></shadow>

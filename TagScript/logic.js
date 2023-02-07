@@ -1,5 +1,12 @@
+function replaceAll(str, mapObj) {
+  return str.replace(
+      new RegExp(Object.keys(mapObj).join("|"),"gi"),
+      (matched) => mapObj[matched.toLowerCase()]
+  );
+}
+
 TagScript['logic_boolean'] = function(block) {
-  const code = (block.getFieldValue('BOOL') == 'TRUE') ? '0==0' : '0==1';
+  const code = (block.getFieldValue('BOOL') == 'TRUE') ? '0==0' : '0!=0';
   return [code, TagScript.ORDER_ATOMIC];
 };
 
@@ -24,6 +31,15 @@ TagScript['logic_ternary'] = function(block) {
   }
 };
 
+TagScript['logic_negate'] = function(block) {
+  // Negation.
+  let arg =
+      TagScript.valueToCode(block, 'BOOL', TagScript.ORDER_ATOMIC) || '0==0';
+
+  arg = replaceAll(arg, {'==': '!=', '!=': '==', '>': '<', '<': '>', '>=': '<=', '<=': '>='});
+  return [arg, TagScript.ORDER_ATOMIC];
+};
+
 TagScript['logic_compare'] = function(block) {
   // Comparison operator.
   const OPERATORS =
@@ -45,7 +61,7 @@ TagScript['logic_operation'] = function(block) {
   const do_ = TagScript.statementToCode(block, 'DO', TagScript.ORDER_NONE) || '';
   const then = TagScript.statementToCode(block, 'ELSE', TagScript.ORDER_NONE) || '';
 
-  return `{${operator}(${condition.replaceAll('~', '|')}):${do_}|${then}}`
+  return `{${operator}(${condition.replace(/~/g, '|')}):${do_}|${then}}`
 };
 
 TagScript['break_block'] = function(block) {

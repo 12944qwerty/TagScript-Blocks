@@ -19,7 +19,7 @@ function start() {
     maxBlocks: Infinity,
     maxInstances: {'test_basic_limit_instances': 3},
     maxTrashcanContents: 256,
-    media: 'https://unpkg.com/browse/blockly@9.0.0/media/',
+    media: 'https://unpkg.com/browse/blockly@9.2.1/media/',
     oneBasedIndex: true,
     readOnly: false,
     move: {

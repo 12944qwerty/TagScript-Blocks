@@ -7,24 +7,37 @@ body {
   overflow: hidden;
   text-align: center;
 }
+
+#else {
+  position: absolute;
+  right: 0;
+  width: 30%;
+}
+
 h1 {
   font-weight: normal;
   font-size: 140%;
   margin-bottom: 0px;
+  width: 100%;
 }
 .version {
   font-weight: normal;
   margin-top: 0px;
   color: #333333;
   opacity: 0.8;
+  width: 100%;
 }
 #blocklyDiv {
   float: left;
   height: 95%;
   width: 70%;
 }
-#importExport {
+#importExport,#importExportjson {
   font-family: monospace;
+  width: 90%;
+  height: 15em;
+  margin-bottom: 0px;
+  resize: none;
 }
 
 .ioLabel>.blocklyFlyoutLabelText {
@@ -45,4 +58,28 @@ h1 {
 
 .zelos-renderer .blocklyFlyoutButton .blocklyText {
   font-size: 1.5rem;
+}
+
+.button { /* Make anchor tags look like buttons */
+  font: 13px Arial;
+  text-decoration: none;
+  background-color: #EEEEEE;
+  color: black;
+  padding: 2px 7px;
+  border: 1px solid #737272;
+  border-radius: 2.5px;
+}
+
+.button:hover {
+  background-color: #e3e3e3;
+  border: 1px solid #333333;
+}
+
+input[type='button'] {
+  cursor: pointer;
+}
+
+.description {
+  width: 90%;
+  padding-left: 5%;
 }
