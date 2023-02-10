@@ -15,6 +15,7 @@
     <script src="./TagScript/variables.js"></script>
     <script src="./TagScript/math.js"></script>
     <script src="./TagScript/carl/meta.js"></script>
+    <script src="./TagScript/carl/variables.js"></script>
     <script type="module" src="./index.js"></script>
 
     <link rel="stylesheet" href="style.css">
@@ -241,6 +242,18 @@
       <category name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
       <sep></sep>
       <toolboxlabel name="Discord Blocks" colour="black" css-icon="discordIcon"></toolboxlabel>
+      <category name="Variables" colour="5539cc">
+        <label text="Default Variables" web-class="ioLabel"></label>
+        <block type="unix"></block>
+        <block type="uses"></block>
+        <block type="mention"></block>
+        <block type="text_args"></block>
+        <label text="Discord Variables" web-class="ioLabel"></label>
+        <block type="user"></block>
+        <block type="target"></block>
+        <block type="server"></block>
+        <block type="channel"></block>
+      </category>
       <category name="Meta Blocks" colour="5539cc">
         <label text="Action Blocks" web-class="ioLabel"></label>
         <block type="delete"></block>
