@@ -278,9 +278,7 @@ const createMutator = {
  */
 const createHelper = function() {
   this.topInput_ = this.getInput("CMD")
-  this.appendValueInput("ARG2");
-  this.itemCount_ = 3
-  // this.updateShape_(3);
+  this.itemCount_ = 1
 };
 
 Blockly.Extensions.registerMutator('cmd_mutator',
@@ -292,7 +290,6 @@ Blockly.Blocks["command"] = {
     this.appendValueInput("ARG0")
       .appendField(createPlusField(), 'PLUS')
       .appendField("with arg(s)");
-    this.appendValueInput("ARG1");
     this.setPreviousStatement(true, null);
     this.setNextStatement(true, null);
     this.setColour(251);
