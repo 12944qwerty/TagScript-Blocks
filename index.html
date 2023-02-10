@@ -14,6 +14,7 @@
     <script src="./TagScript/lists.js"></script>
     <script src="./TagScript/variables.js"></script>
     <script src="./TagScript/math.js"></script>
+    <script src="./TagScript/carl/meta.js"></script>
     <script type="module" src="./index.js"></script>
 
     <link rel="stylesheet" href="style.css">
@@ -233,8 +234,42 @@
           </value>
         </block>
       </category>
-      <sep></sep>
       <category name="Variables" categorystyle="variable_category" custom="VARIABLE"></category>
+      <sep></sep>
+      <toolboxlabel name="Discord Blocks" colour="black" css-icon="discordIcon"></toolboxlabel>
+      <category name="Meta Blocks" colour="5539cc">
+        <label text="Action Blocks" web-class="ioLabel"></label>
+        <block type="delete"></block>
+        <block type="silence"></block>
+        <block type="override"></block>
+        <label text="Redirection Blocks" web-class="ioLabel"></label>
+        <block type="dm"></block>
+        <block type="redirect_channel"></block>
+        <label text="Limiting Blocks" web-class="ioLabel"></label>
+        <block type="requireblacklist">
+          <value name="ROLES">
+            <block type="lists_create_with">
+              <value name="ADD0">
+                <shadow type="text"></shadow>
+              </value>
+              <value name="ADD1">
+                <shadow type="text"></shadow>
+              </value>
+              <value name="ADD2">
+                <shadow type="text"></shadow>
+              </value>
+            </block>
+          </value>
+          <value name="MESSAGE">
+            <block type="text"></block>
+          </value>
+        </block>
+        <label text="React Blocks. Note: Max of 1 emoji without premium. 5 max with." web-class="ioLabel"></label>
+        <block type="react"></block>
+        <block type="reactu"></block>
+        <label text="Command Blocks. Max of 1 running without premium. 3 max with." web-class="ioLabel"></label>
+        <block type="command"></block>
+      </category>
     </xml>
   </body>
 </html>
