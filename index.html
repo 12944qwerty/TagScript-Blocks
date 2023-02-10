@@ -14,6 +14,7 @@
     <script src="./TagScript/lists.js"></script>
     <script src="./TagScript/variables.js"></script>
     <script src="./TagScript/math.js"></script>
+    <script src="./TagScript/carl/embed.js"></script>
     <script src="./TagScript/carl/meta.js"></script>
     <script src="./TagScript/carl/variables.js"></script>
     <script type="module" src="./index.js"></script>
@@ -286,6 +287,29 @@
         <block type="reactu"></block>
         <label text="Command Blocks. Max of 1 running without premium. 3 max with." web-class="ioLabel"></label>
         <block type="command"></block>
+      </category>
+      <category name="Embed Blocks" colour="5539cc">
+        <block type="etitle">
+          <value name="TITLE">
+            <block type="text"></block>
+          </value>
+        </block>
+        <block type="edescription">
+          <value name="DESCRIPTION">
+            <block type="text"></block>
+          </value>
+        </block>
+        <block type="eurl">
+          <value name="URL">
+            <block type="text"></block>
+          </value>
+        </block>
+        <block type="ecolor">
+          <value name="COLOR">
+            <block type="colour_picker"></block>
+          </value>
+        </block>
+        <block type="etimestamp"></block>
       </category>
     </xml>
   </body>
