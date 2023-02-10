@@ -1,3 +1,5 @@
+var workspace = null;
+
 const TagScript = new Blockly.Generator('TagScript');
 
 const { NameType } = Blockly.Names;

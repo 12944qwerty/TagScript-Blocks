@@ -6,6 +6,7 @@
     <!-- This script loads uncompressed when on localhost and loads
         compressed when it is being hosted or on Internet Explorer.  -->
     <script src="https://unpkg.com/blockly@9.2.1/blockly.min.js"></script>
+    <script src="https://unpkg.com/@blockly/block-plus-minus@4.0.5/dist/index.js"></script>
     <script src="./TagScript/index.js"></script>
     <script src="./TagScript/custom.js"></script>
     <script src="./TagScript/color.js"></script>
@@ -14,6 +15,7 @@
     <script src="./TagScript/lists.js"></script>
     <script src="./TagScript/variables.js"></script>
     <script src="./TagScript/math.js"></script>
+    <script src="./TagScript/carl/command.js"></script>
     <script src="./TagScript/carl/embed.js"></script>
     <script src="./TagScript/carl/meta.js"></script>
     <script src="./TagScript/carl/variables.js"></script>
@@ -286,7 +288,20 @@
         <block type="react"></block>
         <block type="reactu"></block>
         <label text="Command Blocks. Max of 1 running without premium. 3 max with." web-class="ioLabel"></label>
-        <block type="command"></block>
+        <block type="command">
+          <value name="CMD">
+            <block type="text"></block>
+          </value>
+          <value name="ARG0">
+            <shadow type="text"></shadow>
+          </value>
+          <value name="ARG1">
+            <shadow type="text"></shadow>
+          </value>
+          <value name="ARG2">
+            <shadow type="text"></shadow>
+          </value>
+        </block>
       </category>
       <category name="Embed Blocks" colour="5539cc">
         <block type="etitle">

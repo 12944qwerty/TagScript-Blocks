@@ -1,5 +1,3 @@
-var workspace = null;
-
 function start() {
   setBackgroundColour();
 
