@@ -10,13 +10,23 @@ At the moment it is very buggy and incomplete. I still have several blocks to ge
   - [Carl-Bot Documentation](https://docs.carl.gg/tags-and-triggers/ccs/) (carl's tags is what I originally made this project for)
 
 ## Version History
-### **v0.0.1**
-⁢ The very first release to this generator. Doesn't include much, but it's there.
-  - Initial Commit
-  - Autosave and autoload
-  - Several blocks, including text, math, logic, lists, variables and color can be used
-  - Custom args block.
-  - Overwrote some math, text, and list blocks to constrain it to how TagScript uses them.
+### **v1.0.0**
+  - Added various discord-related blocks. See [carl's advanced tag usage](https://docs.carl.gg/tags-and-triggers/tags-advanced-usage)
+    - commands
+    - embeds
+    - carl's variables
+    - action blocks
+  - Fixed color rgb
+  - Added plus/minus buttons to mutate the blocks
+  - Other bug fixes and ui improvements
+
+
+### **v0.0.3**
+  - Force Blockly package for now
+  - Added custom `break` block. 
+  - Added copying functionality
+  - Fixed variables to be duplicated when generated
+  - Added reserved variable names.
 
 ### **v0.0.2**
   - Fixed bug where statements attached to the bottom of another block wouldn't generate
@@ -25,9 +35,10 @@ At the moment it is very buggy and incomplete. I still have several blocks to ge
   - Overwrote said block for how it's done in TagScript.
   - Added `print` block
 
-### **v0.0.3**
-  - Force Blockly v9.0.0 for now
-  - Added custom `break` block. 
-  - Added copying functionality
-  - Fixed variables to be duplicated when generated
-  - Added reserved variable names.
+### **v0.0.1**
+⁢ The very first release to this generator. Doesn't include much, but it's there.
+  - Initial Commit
+  - Autosave and autoload
+  - Several blocks, including text, math, logic, lists, variables and color can be used
+  - Custom args block.
+  - Overwrote some math, text, and list blocks to constrain it to how TagScript uses them.
