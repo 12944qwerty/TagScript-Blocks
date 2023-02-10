@@ -22,10 +22,10 @@ function rgbToHex(r, g, b) {
 }
 
 TagScript['colour_rgb'] = function(block) {
-  const r = TagScript.valueToCode(block, 'RED', TagScript.ORDER_NONE) || 0;
-  const g = TagScript.valueToCode(block, 'GREEN', TagScript.ORDER_NONE) || 0;
-  const b = TagScript.valueToCode(block, 'BLUE', TagScript.ORDER_NONE) || 0;
-  
+  const r = block.getInputTargetBlock('RED') || 0;
+  const g = block.getInputTargetBlock('GREEN') || 0;
+  const b = block.getInputTargetBlock('BLUE') || 0;
   const code = rgbToHex(r % 255, g % 255, b % 255);
+  
   return [code, TagScript.ORDER_ATOMIC];
 };
