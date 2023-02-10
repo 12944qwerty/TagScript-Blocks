@@ -185,7 +185,17 @@
         <block type="text_args"></block>
       </category>
       <category name="Lists" categorystyle="list_category">
-        <block type="lists_create_with"></block>
+        <block type="lists_create_with">
+          <value name="ADD0">
+            <shadow type="text"></shadow>
+          </value>
+          <value name="ADD1">
+            <shadow type="text"></shadow>
+          </value>
+          <value name="ADD2">
+            <shadow type="text"></shadow>
+          </value>
+        </block>
         <block type="lists_repeat">
           <value name="NUM">
             <shadow type="math_number">
@@ -218,19 +228,13 @@
         <block type="colour_random"></block>
         <block type="colour_rgb">
           <value name="RED">
-            <shadow type="math_number">
-              <field name="NUM">100</field>
-            </shadow>
+            <block type="math_number">100</block>
           </value>
           <value name="GREEN">
-            <shadow type="math_number">
-              <field name="NUM">50</field>
-            </shadow>
+            <block type="math_number">50</block>
           </value>
           <value name="BLUE">
-            <shadow type="math_number">
-              <field name="NUM">0</field>
-            </shadow>
+            <block type="math_number">0</block>
           </value>
         </block>
       </category>
